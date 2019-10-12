@@ -21,6 +21,7 @@ description:         Please see the README on GitHub at <https://github.com/gith
 
 dependencies:
 - base >= 4.7 && < 5
+- gloss >= 1.13.0.1
 
 library:
   source-dirs: src
@@ -29,17 +30,6 @@ executables:
   CPSC312-Reigns-exe:
     main:                Main.hs
     source-dirs:         app
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    dependencies:
-    - CPSC312-Reigns
-
-tests:
-  CPSC312-Reigns-test:
-    main:                Spec.hs
-    source-dirs:         test
     ghc-options:
     - -threaded
     - -rtsopts
