@@ -12,6 +12,15 @@ drawWeekText num = Translate (-100) (300) -- shift the start of the text to the 
   $ Scale 0.25 0.25
   $ Text ("Week: "++show num)
 
+drawResources :: Resources -> Picture
+drawResources resources = Translate (-120) (300)
+  $ Scale 0.25 0.25
+  $ Text ("Resources: " ++ show resources)
+
+showResources :: (Int, Int, Int, Int) -> [String]
+showResources (sleep, grades, money, socialLife) =
+  "Sleep: " ++ show sleep : "Grades: " ++ show grades : "Money: " ++ show money : "Social life: " ++ show socialLife : []
+
 drawCardText :: String -> Picture
 drawCardText s = Translate (-350) (100) -- shift the start of the text to the left of the window
   $ Scale 0.25 0.25
@@ -29,4 +38,4 @@ drawCard Types.Right = Translate (80) (0)
 -- todo: complete so it actually updates based on the resource values, turns the card, shows the resource symbols
 -- note: don't worry too much about the text looking perfect, i think it would be too hard to really dig into
 drawState :: State -> Picture 
-drawState (currentKey, (text, _, _), _, week) = Pictures [drawCardText text, drawCard currentKey, drawWeekText week]
+drawState (currentKey, (text, _, _), resources, week) = Pictures [drawCardText text, drawCard currentKey, drawResources resources, drawWeekText week]
