@@ -13,13 +13,13 @@ drawWeekText num = Translate (-100) (300) -- shift the start of the text to the 
   $ Text ("Week: "++show num)
 
 drawResources :: Resources -> Picture
-drawResources resources = Translate (-120) (300)
+drawResources resources = Translate (-300) (200)
   $ Scale 0.25 0.25
-  $ Text ("Resources: " ++ show resources)
+  $ Text (showResources resources)
 
-showResources :: (Int, Int, Int, Int) -> [String]
+showResources :: (Int, Int, Int, Int) -> String
 showResources (sleep, grades, money, socialLife) =
-  "Sleep: " ++ show sleep : "Grades: " ++ show grades : "Money: " ++ show money : "Social life: " ++ show socialLife : []
+  "Sleep: " ++ show sleep ++ " Grades: " ++ show grades ++ " Money: " ++ show money ++ " Social life: " ++ show socialLife
 
 drawCardText :: String -> Picture
 drawCardText s = Translate (-350) (100) -- shift the start of the text to the left of the window
