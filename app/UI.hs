@@ -24,16 +24,23 @@ getMoney (_, _, x, _) = x
 getSocialLife :: (a, b, c, d) -> d 
 getSocialLife (_, _, _, x) = x
 
+barIncrementX = 100
+
+sleepBarX = -200
+sleepBarY = 200
+sleepTextX = sleepBarX - 25
+sleepTextY = sleepBarY - 50
+
 drawResources :: (Int, Int, Int, Int) -> Picture
 drawResources (sleep, grades, money, socialLife) = Pictures [
-  translate (-200) (200) $ drawResourceBar sleep,
-  translate (-225) (150) $ scale 0.1 0.1 $ text ("Sleep"),
-  translate (-100) (200) $ drawResourceBar grades,
-  translate (-125) (150) $ scale 0.1 0.1 $ text ("Grades"),
-  translate (0) (200) $ drawResourceBar money,
-  translate (-25) (150) $ scale 0.1 0.1 $ text ("Money"),
-  translate (100) (200) $ drawResourceBar socialLife,
-  translate (75) (150) $ scale 0.1 0.1 $ text ("Social life")]
+  translate (sleepBarX) (sleepBarY) $ drawResourceBar sleep,
+  translate (sleepTextX) (sleepTextY) $ scale 0.1 0.1 $ text ("Sleep"),
+  translate (sleepBarX + (barIncrementX * 1)) (sleepBarY) $ drawResourceBar grades,
+  translate (sleepTextX + (barIncrementX * 1)) (sleepTextY) $ scale 0.1 0.1 $ text ("Grades"),
+  translate (sleepBarX + (barIncrementX * 2)) (sleepBarY) $ drawResourceBar money,
+  translate (sleepTextX + (barIncrementX * 2)) (sleepTextY) $ scale 0.1 0.1 $ text ("Money"),
+  translate (sleepBarX + (barIncrementX * 3)) (sleepBarY) $ drawResourceBar socialLife,
+  translate (sleepTextX + (barIncrementX * 3)) (sleepTextY) $ scale 0.1 0.1 $ text ("Social life")]
 
 resourceBarOutline = rectangleWire 10 40
 
@@ -57,7 +64,17 @@ drawCard Types.Right = Translate (80) (0)
   $ Rotate (12)
   $ cardDrawing
 
+drawActionIcons :: (Int, Int, Int, Int) -> Picture
+drawActionIcons (sleep, grades, money, socialLife) = pictures [
+  translate (-200) (250) $ scale 0.1 0.1 $ drawSingleIcon sleep,
+  drawSingleIcon grades,
+  drawSingleIcon money,
+  drawSingleIcon socialLife]
+
+drawSingleIcon :: Int -> Picture
+drawSingleIcon change = Text $ show change
+
 -- todo: complete so it actually updates based on the resource values, turns the card, shows the resource symbols
 -- note: don't worry too much about the text looking perfect, i think it would be too hard to really dig into
 drawState :: State -> Picture 
-drawState (currentKey, (text, _, _), resources, week) = Pictures [drawCardText text, drawCard currentKey, drawResources resources, drawWeekText week]
+drawState (currentKey, (text, leftAction, rightAction), resources, week) = Pictures [drawCardText text, drawCard currentKey, drawResources resources, drawActionIcons leftAction, drawActionIcons rightAction, drawWeekText week]
