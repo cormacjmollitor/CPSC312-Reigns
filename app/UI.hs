@@ -13,13 +13,36 @@ drawWeekText num = Translate (-100) (300) -- shift the start of the text to the 
   $ Text ("Week: "++show num)
 
 drawResources :: Resources -> Picture
-drawResources resources = Translate (-300) (200)
+drawResources resources = Pictures [
+  Translate (-400) (200)
   $ Scale 0.25 0.25
   $ Text (showResources resources)
+  , translate (-400) (200) $ drawResourceBar (getSleep resources)
+  ]
+
+getSleep :: (a, b, c, d) -> a
+getSleep (x, _, _, _) = x
+
+getGrades :: (a, b, c, d) -> b 
+getGrades (_, x, _, _) = x
+
+getMoney :: (a, b, c, d) -> c
+getMoney (_, _, x, _) = x
+
+getSocialLife :: (a, b, c, d) -> d 
+getSocialLife (_, _, _, x) = x
 
 showResources :: (Int, Int, Int, Int) -> String
 showResources (sleep, grades, money, socialLife) =
-  "Sleep: " ++ show sleep ++ " Grades: " ++ show grades ++ " Money: " ++ show money ++ " Social life: " ++ show socialLife
+  "Sleep: " ++ show sleep ++ " | Grades: " ++ show grades ++ " | Money: " ++ show money ++ " | Social life: " ++ show socialLife
+
+resourceBarOutline = rectangleWire 10 40
+
+drawResourceBarFill :: Int -> Picture
+drawResourceBarFill points = rectangleSolid 10 (fromIntegral points)
+
+drawResourceBar :: Int -> Picture
+drawResourceBar points = pictures [drawResourceBarFill points, resourceBarOutline]
 
 drawCardText :: String -> Picture
 drawCardText s = Translate (-350) (100) -- shift the start of the text to the left of the window
