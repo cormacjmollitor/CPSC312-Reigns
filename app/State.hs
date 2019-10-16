@@ -3,6 +3,7 @@ module State (inputHandler, initialState) where
 import Graphics.Gloss
 import Graphics.Gloss.Interface.Pure.Game -- for Key-handling
 import Types
+import GameLogic
 
 initialCard :: Card
 initialCard = ("left or right, press again to confirm", (0,0,0,0), (0,0,0,0))
