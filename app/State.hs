@@ -5,7 +5,7 @@ import Graphics.Gloss.Interface.Pure.Game -- for Key-handling
 import Types
 
 initialCard :: Card
-initialCard = ("left or right, press again to confirm", (0,0,0,0), (0,0,0,0))
+initialCard = ("left or right, press again to confirm", (5,0,0,-10), (-5,0,0,5))
 
 initialState :: State
 initialState = (Types.None, initialCard, (10,20,5,8), 0)

@@ -30,6 +30,7 @@ sleepBarX = -200
 sleepBarY = 200
 sleepTextX = sleepBarX - 25
 sleepTextY = sleepBarY - 50
+actionIconY = sleepBarY + 50
 
 drawResources :: (Int, Int, Int, Int) -> Picture
 drawResources (sleep, grades, money, socialLife) = Pictures [
@@ -66,10 +67,10 @@ drawCard Types.Right = Translate (80) (0)
 
 drawActionIcons :: (Int, Int, Int, Int) -> Picture
 drawActionIcons (sleep, grades, money, socialLife) = pictures [
-  translate (-200) (250) $ scale 0.1 0.1 $ drawSingleIcon sleep,
-  drawSingleIcon grades,
-  drawSingleIcon money,
-  drawSingleIcon socialLife]
+  translate (sleepBarX) (actionIconY) $ scale 0.1 0.1 $ drawSingleIcon sleep,
+  translate (sleepBarX + (barIncrementX * 1)) (actionIconY) $ scale 0.1 0.1 $ drawSingleIcon grades,
+  translate (sleepBarX + (barIncrementX * 2)) (actionIconY) $ scale 0.1 0.1 $ drawSingleIcon money,
+  translate (sleepBarX + (barIncrementX * 3)) (actionIconY) $ scale 0.1 0.1 $ drawSingleIcon socialLife]
 
 drawSingleIcon :: Int -> Picture
 drawSingleIcon change = Text $ show change
