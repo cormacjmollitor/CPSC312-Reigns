@@ -29,4 +29,4 @@ drawCard Types.Right = Translate (80) (0)
 -- todo: complete so it actually updates based on the resource values, turns the card, shows the resource symbols
 -- note: don't worry too much about the text looking perfect, i think it would be too hard to really dig into
 drawState :: State -> Picture 
-drawState (currentKey, (text, _, _), _, week) = Pictures [drawCardText text, drawCard currentKey, drawWeekText week]
+drawState (currentKey, (text, _, _), _, _, week) = Pictures [drawCardText text, drawCard currentKey, drawWeekText week]
