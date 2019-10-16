@@ -12,15 +12,6 @@ drawWeekText num = Translate (-100) (300) -- shift the start of the text to the 
   $ Scale 0.25 0.25
   $ Text ("Week: "++show num)
 
-drawResources :: Resources -> Picture
-drawResources resources = Pictures [
-  showResources resources
-  -- Translate (-400) (200)
-  -- $ Scale 0.25 0.25
-  -- $ Text (showResources resources)
-  -- , translate (-400) (200) $ drawResourceBar (getSleep resources)
-  ]
-
 getSleep :: (a, b, c, d) -> a
 getSleep (x, _, _, _) = x
 
@@ -33,16 +24,16 @@ getMoney (_, _, x, _) = x
 getSocialLife :: (a, b, c, d) -> d 
 getSocialLife (_, _, _, x) = x
 
--- showResources :: (Int, Int, Int, Int) -> String
--- showResources (sleep, grades, money, socialLife) =
---   "Sleep: " ++ show sleep ++ " | Grades: " ++ show grades ++ " | Money: " ++ show money ++ " | Social life: " ++ show socialLife
-
-showResources :: (Int, Int, Int, Int) -> Picture
-showResources (sleep, grades, money, socialLife) = Pictures [
-  translate (-400) (200) $ drawResourceBar sleep,
-  translate (-350) (200) $ drawResourceBar grades,
-  translate (-300) (200) $ drawResourceBar money,
-  translate (-250) (200) $ drawResourceBar socialLife]
+drawResources :: (Int, Int, Int, Int) -> Picture
+drawResources (sleep, grades, money, socialLife) = Pictures [
+  translate (-200) (200) $ drawResourceBar sleep,
+  translate (-225) (150) $ scale 0.1 0.1 $ text ("Sleep"),
+  translate (-100) (200) $ drawResourceBar grades,
+  translate (-125) (150) $ scale 0.1 0.1 $ text ("Grades"),
+  translate (0) (200) $ drawResourceBar money,
+  translate (-25) (150) $ scale 0.1 0.1 $ text ("Money"),
+  translate (100) (200) $ drawResourceBar socialLife,
+  translate (75) (150) $ scale 0.1 0.1 $ text ("Social life")]
 
 resourceBarOutline = rectangleWire 10 40
 

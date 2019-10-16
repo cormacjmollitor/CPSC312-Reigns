@@ -8,7 +8,7 @@ initialCard :: Card
 initialCard = ("left or right, press again to confirm", (0,0,0,0), (0,0,0,0))
 
 initialState :: State
-initialState = (Types.None, initialCard, (20,20,20,20), 0)
+initialState = (Types.None, initialCard, (10,20,5,8), 0)
 
 deck :: [Card]
 deck = [
