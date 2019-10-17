@@ -88,5 +88,12 @@ drawSingleIcon change =
 
 -- todo: complete so it actually updates based on the resource values, turns the card, shows the resource symbols
 -- note: don't worry too much about the text looking perfect, i think it would be too hard to really dig into
-drawState :: State -> Picture 
-drawState (currentKey, (text, leftAction, rightAction), _, resources, week) = Pictures [drawCardText text, drawCard currentKey, drawResources resources, drawIcons currentKey leftAction rightAction, drawWeekText week]
+drawState :: State -> IO Picture
+drawState (currentKey, (text, leftAction, rightAction), resources, week) = 
+  do
+    return (Pictures [drawCardText text, 
+                      drawCard currentKey, 
+                      drawResources resources, 
+                      drawIcons currentKey leftAction rightAction, 
+                      drawWeekText week
+                      ])

@@ -5,4 +5,4 @@ type Action = (Int, Int, Int, Int) -- (Sleep, Grades, Money, Social Life)
 type Card = (String, Action, Action)
 type Resources = (Int, Int, Int, Int) -- (Sleep, Grades, Money, Social Life)
 data CurrentKey = Left | Right | None deriving (Eq)
-type State = (CurrentKey, Card, Int, Resources, Week) -- Int is current deck index
+type State = (CurrentKey, Card, Resources, Week)

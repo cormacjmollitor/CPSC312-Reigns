@@ -1,6 +1,7 @@
 module Main where
 
 import Graphics.Gloss
+import Graphics.Gloss.Interface.IO.Game
 import UI
 import State
 import Types
@@ -12,7 +13,7 @@ windowDisplay :: Display
 windowDisplay = FullScreen
 
 main :: IO ()
-main = play
+main = playIO
   windowDisplay
   white
   simulationStepsPerSecond
@@ -22,5 +23,5 @@ main = play
   updateFunc
 
 -- Do nothing, we only respond to key events
-updateFunc :: Float -> State -> State
-updateFunc _ state = state
+updateFunc :: Float -> State -> IO State
+updateFunc _ state = do return state

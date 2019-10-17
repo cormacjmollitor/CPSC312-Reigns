@@ -3,26 +3,22 @@ module State (inputHandler, initialState) where
 import Graphics.Gloss
 import Graphics.Gloss.Interface.Pure.Game -- for Key-handling
 import Types
-import System.Random
-import System.IO.Unsafe
 import GameLogic
 
-seedIndex = (unsafePerformIO (randomRIO(0, length(deck) - 1) :: IO Int))
-
 initialState :: State
-initialState = (Types.None, initialCard, seedIndex, (20,20,20,20), 0)
+initialState = (Types.None, initialCard, (20,20,20,20), 0)
 
-inputHandler :: Event -> State -> State
+inputHandler :: Event -> State -> IO State
 inputHandler (EventKey (SpecialKey KeyLeft) Down _ _) state = handleLeftKey state
 inputHandler (EventKey (SpecialKey KeyRight) Down _ _) state = handleRightKey state
-inputHandler _ s = s
+inputHandler _ s = do return s
 
-handleLeftKey :: State -> State
-handleLeftKey (Types.Left, card, cardIndex, resources, week) = processMove (Types.Left, card, cardIndex, resources, week) -- This will call the backend
-handleLeftKey (Types.Right, card, cardIndex, resources, week) = (Types.None, card, cardIndex, resources, week) -- following 2 will not call backend
-handleLeftKey (Types.None, card, cardIndex, resources, week) = (Types.Left, card, cardIndex, resources, week)
+handleLeftKey :: State -> IO State
+handleLeftKey (Types.Left, card, resources, week) = processMove (Types.Left, card, resources, week) -- This will call the backend
+handleLeftKey (Types.Right, card, resources, week) = do return (Types.None, card, resources, week) -- following 2 will not call backend
+handleLeftKey (Types.None, card, resources, week) = do return (Types.Left, card, resources, week)
 
-handleRightKey :: State -> State
-handleRightKey (Types.Right, card, cardIndex, resources, week) = processMove (Types.Right, card, cardIndex, resources, week) -- This will call the backend
-handleRightKey (Types.Left, card, cardIndex, resources, week) = (Types.None, card, cardIndex, resources, week)
-handleRightKey (Types.None, card, cardIndex, resources, week) = (Types.Right, card, cardIndex, resources, week)
+handleRightKey :: State -> IO State
+handleRightKey (Types.Right, card, resources, week) = processMove (Types.Right, card, resources, week) -- This will call the backend
+handleRightKey (Types.Left, card, resources, week) = do return (Types.None, card, resources, week)
+handleRightKey (Types.None, card, resources, week) = do return (Types.Right, card, resources, week)
