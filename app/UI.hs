@@ -81,7 +81,10 @@ drawChosenActionIcons (sleep, grades, money, socialLife) = pictures [
   translate (sleepBarX + (barIncrementX * 3)) (actionIconY) $ scale 0.1 0.1 $ drawSingleIcon socialLife]
 
 drawSingleIcon :: Int -> Picture
-drawSingleIcon change = Text $ show change
+drawSingleIcon change =
+  if change > 0 then color green $ Text "+"
+  else if change < 0 then color red $ Text "-"
+  else Blank
 
 -- todo: complete so it actually updates based on the resource values, turns the card, shows the resource symbols
 -- note: don't worry too much about the text looking perfect, i think it would be too hard to really dig into
