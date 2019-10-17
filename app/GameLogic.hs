@@ -45,14 +45,14 @@ module GameLogic (deck, processMove, initialCard) where
           if (text == endGameText)
             then return (Types.None, endGameCard, resources, week) -- TODO: implement quitting maybe?
           else if (lostGame (updateResources leftAction resources) || (wonGame week))
-            then  return (Types.None, endGameCard, resources, week) -- Game over
+            then  return (Types.None, endGameCard, (updateResources leftAction resources), week) -- Game over
             else  return (Types.None, nextCard, (updateResources leftAction resources), week + 1)
       else if key == Types.Right
         then
           if (text == endGameText)
             then return (Types.None, initialCard, (20,20,20,20), 0) -- Initial state but with next card instead
           else if (lostGame (updateResources rightAction resources) || (wonGame week))
-            then return (Types.None, endGameCard, resources, week) -- Game over
+            then return (Types.None, endGameCard, (updateResources rightAction resources), week) -- Game over
             else return (Types.None, nextCard, (updateResources rightAction resources), week + 1)
       else 
         if (wonGame week) 
