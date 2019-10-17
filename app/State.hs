@@ -5,8 +5,11 @@ import Graphics.Gloss.Interface.Pure.Game -- for Key-handling
 import Types
 import GameLogic
 
+initialResources :: Resources
+initialResources = (15,15,15,15)
+
 initialState :: State
-initialState = (Types.None, initialCard, (20,20,20,20), 0)
+initialState = (Types.None, initialCard, initialResources, 0)
 
 inputHandler :: Event -> State -> IO State
 inputHandler (EventKey (SpecialKey KeyLeft) Down _ _) state = handleLeftKey state
