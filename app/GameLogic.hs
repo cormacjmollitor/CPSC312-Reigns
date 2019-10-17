@@ -22,7 +22,12 @@ module GameLogic (deck, processMove, initialCard) where
     ("Buy a Juul", (0,0,0,0), (0,-3,-10,6)),
     ("Go to the movies", (3,0,4,-12), (-5,-6,-6,8)),
     ("Go for dinner with your parents", (0,2,0,-18), (0,-12,0,6)),
-    ("Workout", (-8,3,0,-4), (0,-6,-3,4))]
+    ("Workout", (-8,3,0,-4), (0,-6,-3,4)),
+    ("Buy a Patagonia rain jacket", (0, 0, 0, -3), (0, 0, -10, 3)),
+    ("Move to a nicer apartment", (-6, -3, 6, 0), (5, 5, -10, 4)),
+    ("Subscribe to Headspace", (-3, -3, 5, 0), (7, 3, -5, 2)),
+    ("Go to Seattle for reading week", (8, 5, 3, -7), (-4, -3, -5, 10)),
+    ("Become an exec of an AMS club", (4, 4, 0, -6), (-3, -4, 0, 7))]
 
   endGameText :: String
   endGameText = "Game Over. Press right to play again."
