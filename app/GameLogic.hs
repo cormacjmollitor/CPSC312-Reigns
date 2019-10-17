@@ -30,7 +30,10 @@ module GameLogic (deck, processMove, initialCard) where
     ("Move to a nicer apartment", (-6, -3, 6, 0), (5, 5, -10, 4)),
     ("Subscribe to Headspace", (-3, -3, 5, 0), (7, 3, -5, 2)),
     ("Go to Seattle for reading week", (8, 5, 3, -7), (-4, -3, -5, 10)),
-    ("Become an exec of an AMS club", (4, 4, 0, -6), (-3, -4, 0, 7))]
+    ("Become an exec of an AMS club", (4, 4, 0, -6), (-3, -4, 0, 7)),
+    ("Go to Pit Night", (4,3,0,-5), (-5,-8,-3,8)),
+    ("Go to My Home Cuisine with friends", (0,2,0,-3), (-3,-3,-3,6)),
+    ("Get a Chegg account", (0,-4,0,0), (3,9,-5,3))]
 
   endGameText :: String
   endGameText = "Game Over. Press right to play again."
