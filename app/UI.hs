@@ -65,8 +65,16 @@ drawCard Types.Right = Translate (80) (0)
   $ Rotate (12)
   $ cardDrawing
 
-drawActionIcons :: (Int, Int, Int, Int) -> Picture
-drawActionIcons (sleep, grades, money, socialLife) = pictures [
+drawIcons :: CurrentKey -> Action -> Action -> Picture 
+drawIcons selected left right =
+  if selected == Types.Left
+    then drawChosenActionIcons left
+  else if selected == Types.Right
+    then drawChosenActionIcons right
+  else Blank
+
+drawChosenActionIcons :: (Int, Int, Int, Int) -> Picture
+drawChosenActionIcons (sleep, grades, money, socialLife) = pictures [
   translate (sleepBarX) (actionIconY) $ scale 0.1 0.1 $ drawSingleIcon sleep,
   translate (sleepBarX + (barIncrementX * 1)) (actionIconY) $ scale 0.1 0.1 $ drawSingleIcon grades,
   translate (sleepBarX + (barIncrementX * 2)) (actionIconY) $ scale 0.1 0.1 $ drawSingleIcon money,
@@ -78,4 +86,4 @@ drawSingleIcon change = Text $ show change
 -- todo: complete so it actually updates based on the resource values, turns the card, shows the resource symbols
 -- note: don't worry too much about the text looking perfect, i think it would be too hard to really dig into
 drawState :: State -> Picture 
-drawState (currentKey, (text, leftAction, rightAction), resources, week) = Pictures [drawCardText text, drawCard currentKey, drawResources resources, drawActionIcons leftAction, drawActionIcons rightAction, drawWeekText week]
+drawState (currentKey, (text, leftAction, rightAction), _, resources, week) = Pictures [drawCardText text, drawCard currentKey, drawResources resources, drawIcons currentKey leftAction rightAction, drawWeekText week]
