@@ -51,7 +51,14 @@ module GameLogic (deck, processMove, initialCard) where
   updateResources :: Action -> Resources -> Resources
   updateResources action resources = let (changeSleep, changeGrades, changeMoney, changeSocial) = action
                                         in let (sleep, grades, money, social) = resources
-                                        in (sleep + changeSleep, grades + changeGrades, money + changeMoney, social + changeSocial)
+                                        in (incrementOrCapResource sleep changeSleep, incrementOrCapResource grades changeGrades, incrementOrCapResource money changeMoney, incrementOrCapResource social changeSocial)
+  
+  -- Adds the change in resources ot the current resource amount.
+  -- If the value after adding the change is greater than 20, truncates the value to 20.
+  incrementOrCapResource :: Int -> Int -> Int
+  incrementOrCapResource cur delta
+    | (cur + delta) > 20 = 20
+    | otherwise = (cur + delta)
 
   -- Function that, given the game's state, checks if any of the resources are 0
   lostGame :: Resources -> Bool
