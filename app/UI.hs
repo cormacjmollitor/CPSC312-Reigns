@@ -83,6 +83,7 @@ drawSingleIcon change =
   else if change < 0 then color red $ Text "-"
   else Blank
 
+-- draw all the pictures that compose the UI
 drawState :: State -> IO Picture
 drawState (currentKey, (text, leftAction, rightAction), resources, week) = 
   do
