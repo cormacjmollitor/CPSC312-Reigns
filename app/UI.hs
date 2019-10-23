@@ -8,13 +8,13 @@ cardDrawing = Translate (0) (-100) -- shift the card into the middle
   $ rectangleWire 400 600
 
 drawWeekText :: Int -> Picture
-drawWeekText num = Translate (-100) (300) -- shift the start of the text to the left of the window
+drawWeekText num = Translate (-75) (300) -- shift the start of the text to the left of the window
   $ Scale 0.25 0.25
   $ Text ("Week: "++show num)
 
 barIncrementX = 100
 
-sleepBarX = -200
+sleepBarX = -150
 sleepBarY = 200
 sleepTextX = sleepBarX - 25
 sleepTextY = sleepBarY - 50
