@@ -39,7 +39,7 @@ module GameLogic (deck, processMove, initialCard) where
   endGameText = "Game Over. Press right to play again."
 
   initialCard :: Card
-  initialCard = ("left or right, press again to confirm", (0,0,0,0), (0,0,0,0))
+  initialCard = ("Right = do it! Left = nope! Press key twice.", (0,0,0,0), (0,0,0,0))
 
   -- Card given to the user at the end of the game so they can quit or restart
   endGameCard :: Card
