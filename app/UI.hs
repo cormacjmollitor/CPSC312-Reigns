@@ -34,7 +34,8 @@ drawResources (sleep, grades, money, socialLife) = Pictures [
 resourceBarOutline = rectangleWire 10 40
 
 drawResourceBarFill :: Int -> Picture
-drawResourceBarFill points = rectangleSolid 10 (fromIntegral points * 2)
+drawResourceBarFill points = translate (0) (- (20- (fromIntegral points))) 
+  $ rectangleSolid 10 (fromIntegral points * 2)
 
 drawResourceBar :: Int -> Picture
 drawResourceBar points = pictures [drawResourceBarFill points, resourceBarOutline]
