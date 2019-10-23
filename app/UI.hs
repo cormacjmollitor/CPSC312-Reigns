@@ -61,6 +61,14 @@ drawIcons selected left right =
     then drawChosenActionIcons right
   else Blank
 
+drawIndicators :: CurrentKey -> Picture
+drawIndicators selected =
+  if selected == Types.Left
+    then translate (-300) (0) $ scale 0.25 0.25 $ Text ("Nope!")
+  else if selected == Types.Right
+    then translate (300) (0) $ scale 0.25 0.25 $ Text ("Do it!")
+  else Blank
+
 drawChosenActionIcons :: (Int, Int, Int, Int) -> Picture
 drawChosenActionIcons (sleep, grades, money, socialLife) = pictures [
   translate (sleepBarX) (actionIconY) $ scale 0.1 0.1 $ drawSingleIcon sleep,
@@ -74,8 +82,6 @@ drawSingleIcon change =
   else if change < 0 then color red $ Text "-"
   else Blank
 
--- todo: complete so it actually updates based on the resource values, turns the card, shows the resource symbols
--- note: don't worry too much about the text looking perfect, i think it would be too hard to really dig into
 drawState :: State -> IO Picture
 drawState (currentKey, (text, leftAction, rightAction), resources, week) = 
   do
@@ -83,5 +89,6 @@ drawState (currentKey, (text, leftAction, rightAction), resources, week) =
                       drawCard currentKey, 
                       drawResources resources, 
                       drawIcons currentKey leftAction rightAction, 
+                      drawIndicators currentKey,
                       drawWeekText week
                       ])
