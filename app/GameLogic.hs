@@ -54,7 +54,7 @@ module GameLogic (deck, processMove, initialCard) where
       if key == Types.Left
         then
           if (text == endGameText)
-            then return (Types.None, endGameCard, resources, week) -- TODO: implement quitting maybe?
+            then return (Types.None, endGameCard, resources, week) -- End game
           else if (lostGame (updateResources leftAction resources) || (wonGame week))
             then  return (Types.None, endGameCard, (updateResources leftAction resources), week) -- Game over
             else  return (Types.None, nextCard, (updateResources leftAction resources), week + 1)
