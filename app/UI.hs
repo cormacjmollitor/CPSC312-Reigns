@@ -12,18 +12,6 @@ drawWeekText num = Translate (-100) (300) -- shift the start of the text to the 
   $ Scale 0.25 0.25
   $ Text ("Week: "++show num)
 
-getSleep :: (a, b, c, d) -> a
-getSleep (x, _, _, _) = x
-
-getGrades :: (a, b, c, d) -> b 
-getGrades (_, x, _, _) = x
-
-getMoney :: (a, b, c, d) -> c
-getMoney (_, _, x, _) = x
-
-getSocialLife :: (a, b, c, d) -> d 
-getSocialLife (_, _, _, x) = x
-
 barIncrementX = 100
 
 sleepBarX = -200
