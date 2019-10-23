@@ -12,8 +12,10 @@ drawWeekText num = Translate (-75) (300) -- shift the start of the text to the l
   $ Scale 0.25 0.25
   $ Text ("Week: "++show num)
 
+-- distance between each resource bar should be 100px
 barIncrementX = 100
 
+-- all resource bars will be relative to sleep bar & text
 sleepBarX = -150
 sleepBarY = 200
 sleepTextX = sleepBarX - 25
@@ -33,10 +35,15 @@ drawResources (sleep, grades, money, socialLife) = Pictures [
 
 resourceBarOutline = rectangleWire 10 40
 
+-- fill in the resource bar according to points (out of 20)
 drawResourceBarFill :: Int -> Picture
-drawResourceBarFill points = translate (0) (- (20- (fromIntegral points))) 
-  $ rectangleSolid 10 (fromIntegral points * 2)
+drawResourceBarFill points =
+  if points > 0 then
+    translate (0) (- (20- (fromIntegral points))) 
+    $ rectangleSolid 10 (fromIntegral points * 2)
+  else Blank
 
+-- draw outline and fill together
 drawResourceBar :: Int -> Picture
 drawResourceBar points = pictures [drawResourceBarFill points, resourceBarOutline]
 
@@ -45,6 +52,7 @@ drawCardText s = Translate (-350) (100) -- shift the start of the text to the le
   $ Scale 0.25 0.25
   $ Text s
 
+-- draw rotated or non-rotated card depending on current key
 drawCard :: CurrentKey -> Picture
 drawCard None = cardDrawing
 drawCard Types.Left = Translate (-80) (0)
@@ -54,6 +62,7 @@ drawCard Types.Right = Translate (80) (0)
   $ Rotate (12)
   $ cardDrawing
 
+-- decide which icons to draw depending on CurrentKey
 drawIcons :: CurrentKey -> Action -> Action -> Picture 
 drawIcons selected left right =
   if selected == Types.Left
@@ -62,6 +71,7 @@ drawIcons selected left right =
     then drawChosenActionIcons right
   else Blank
 
+-- draw "Do it!" or "Nope!" depending on CurrentKey
 drawIndicators :: CurrentKey -> Picture
 drawIndicators selected =
   if selected == Types.Left
@@ -70,6 +80,7 @@ drawIndicators selected =
     then translate (300) (0) $ scale 0.25 0.25 $ Text ("Do it!")
   else Blank
 
+-- draw preview of action (effects of taking that action)
 drawChosenActionIcons :: (Int, Int, Int, Int) -> Picture
 drawChosenActionIcons (sleep, grades, money, socialLife) = pictures [
   translate (sleepBarX) (actionIconY) $ scale 0.1 0.1 $ drawSingleIcon sleep,
@@ -77,12 +88,14 @@ drawChosenActionIcons (sleep, grades, money, socialLife) = pictures [
   translate (sleepBarX + (barIncrementX * 2)) (actionIconY) $ scale 0.1 0.1 $ drawSingleIcon money,
   translate (sleepBarX + (barIncrementX * 3)) (actionIconY) $ scale 0.1 0.1 $ drawSingleIcon socialLife]
 
+-- helper function: draw a single "+" or "-" icon
 drawSingleIcon :: Int -> Picture
 drawSingleIcon change =
   if change > 0 then color green $ Text "+"
   else if change < 0 then color red $ Text "-"
   else Blank
 
+-- draw the whole thing
 drawState :: State -> IO Picture
 drawState (currentKey, (text, leftAction, rightAction), resources, week) = 
   do
